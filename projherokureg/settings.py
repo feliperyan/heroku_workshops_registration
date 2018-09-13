@@ -93,14 +93,15 @@ DATABASES = {
 }
 
 #If we're running on Docker, overwrite DATABASES dictionary:
-if 'PG_PORT_5432_TCP_ADDR' in os.environ:
+if 'DOCKER' in os.environ:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'docker',
         'USER': 'docker',
         'PASSWORD': 'docker',
-        'HOST': os.environ['PG_PORT_5432_TCP_ADDR']
+        'HOST': 'db',
+        'PORT': '5432'
         }
     }
 
